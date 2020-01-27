@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactHunter", "ReactHunter\ReactHunter.csproj", "{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHunter", "libs\SmartHunter-master\SmartHunter\SmartHunter.csproj", "{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}.Debug|Any CPU.Build.0 = Debug|x64
+		{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}.Debug|x64.ActiveCfg = Debug|x64
+		{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}.Debug|x64.Build.0 = Debug|x64
+		{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}.Release|x64.ActiveCfg = Release|x64
+		{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}.Release|x64.Build.0 = Release|x64
+		{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}.Debug|x64.ActiveCfg = Debug|x64
+		{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}.Debug|x64.Build.0 = Debug|x64
+		{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}.Release|x64.ActiveCfg = Release|x64
+		{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {134154A5-585A-4036-A5FA-09ADD34CC4E8}
+	EndGlobalSection
+EndGlobal
