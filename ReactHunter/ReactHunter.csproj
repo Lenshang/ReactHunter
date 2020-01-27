@@ -99,4 +99,11 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>cd $(SolutionDir)reacthunter-web
+npm run build</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(SolutionDir)reacthunter-web\build $(TargetDir)Web /E /Y /I</PostBuildEvent>
+  </PropertyGroup>
 </Project>
