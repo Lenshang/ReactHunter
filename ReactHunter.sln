@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactHunter", "ReactHunter\ReactHunter.csproj", "{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactHunter_old", "ReactHunter_old\ReactHunter_old.csproj", "{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHunter", "libs\SmartHunter-master\SmartHunter\SmartHunter.csproj", "{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactHunter", "ReactHunter\ReactHunter.csproj", "{40FB84F2-716F-4795-9EF8-43A0FEC77375}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHunter", "libs\SmartHunter\SmartHunter\SmartHunter.csproj", "{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,14 @@ Global
 		{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}.Release|x64.ActiveCfg = Release|x64
 		{5BA3EE97-7CBE-4FCD-AE2F-9029CCFC00CE}.Release|x64.Build.0 = Release|x64
+		{40FB84F2-716F-4795-9EF8-43A0FEC77375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40FB84F2-716F-4795-9EF8-43A0FEC77375}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40FB84F2-716F-4795-9EF8-43A0FEC77375}.Debug|x64.ActiveCfg = Debug|x64
+		{40FB84F2-716F-4795-9EF8-43A0FEC77375}.Debug|x64.Build.0 = Debug|x64
+		{40FB84F2-716F-4795-9EF8-43A0FEC77375}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40FB84F2-716F-4795-9EF8-43A0FEC77375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40FB84F2-716F-4795-9EF8-43A0FEC77375}.Release|x64.ActiveCfg = Release|Any CPU
+		{40FB84F2-716F-4795-9EF8-43A0FEC77375}.Release|x64.Build.0 = Release|Any CPU
 		{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5F99CEF-1C16-48E6-A88B-1A66D3B53998}.Debug|x64.ActiveCfg = Debug|x64
