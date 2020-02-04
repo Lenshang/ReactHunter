@@ -21,7 +21,7 @@ export async function GetData(): Promise<any> {
         });
 
         _monsters.push({
-            name: "皮卡丘",
+            name: "雌火龙",
             "address": 4961948784,
             health: {
                 max: 2296,
@@ -145,7 +145,7 @@ export async function GetData(): Promise<any> {
             "crown": 2,
         })
         _monsters.push({
-            name: "雷丘",
+            name: "黑狼鸟",
             "address": 4961815328,
             health: {
                 max: 2296,

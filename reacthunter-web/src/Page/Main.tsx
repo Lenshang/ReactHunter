@@ -1,26 +1,80 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb, message, Progress, Divider, Icon, Row, Col, Collapse, Statistic, Card } from 'antd';
+import { Layout, Menu, Breadcrumb, message, Progress, Divider, Icon, Row, Col, Collapse, Statistic, Card, Button } from 'antd';
 import * as Api from './MainService';
 import './Main.css'
 const { Header, Content, Footer } = Layout;
 const { Panel } = Collapse;
+const ButtonGroup = Button.Group;
 interface IProps {
 
 }
 interface IState {
     apiData: any;
     preApiData: any;
+    zoomLevel: number;
+}
+interface IZoomStyle {
+    defaultFontSize: number;
+    activeMonsterFontSize: number;
+    activeTeamIconSize: number;
+    defaultProgressWidth: number;
+    activeProgressWidth: number;
+    teamHeight: number;
 }
 export default class Main extends React.Component<IProps, IState>{
     Interval: NodeJS.Timeout | undefined;
     activeMonsterIndex: number;
+    zoomStyle: Array<IZoomStyle>;
     constructor(props: IProps) {
         super(props);
         this.state = {
             apiData: {},
-            preApiData: {}
+            preApiData: {},
+            zoomLevel: 1
         }
         this.activeMonsterIndex = 0;
+        this.zoomStyle = [
+            {
+                defaultFontSize: 10,
+                activeMonsterFontSize: 16,
+                activeTeamIconSize: 14,
+                defaultProgressWidth: 8,
+                activeProgressWidth: 8,
+                teamHeight: 50
+            },
+            {
+                defaultFontSize: 14,
+                activeMonsterFontSize: 20,
+                activeTeamIconSize: 18,
+                defaultProgressWidth: 10,
+                activeProgressWidth: 10,
+                teamHeight: 60
+            },
+            {
+                defaultFontSize: 18,
+                activeMonsterFontSize: 26,
+                activeTeamIconSize: 22,
+                defaultProgressWidth: 12,
+                activeProgressWidth: 12,
+                teamHeight: 70
+            },
+            {
+                defaultFontSize: 22,
+                activeMonsterFontSize: 30,
+                activeTeamIconSize: 26,
+                defaultProgressWidth: 16,
+                activeProgressWidth: 16,
+                teamHeight: 80
+            },
+            {
+                defaultFontSize: 26,
+                activeMonsterFontSize: 36,
+                activeTeamIconSize: 30,
+                defaultProgressWidth: 20,
+                activeProgressWidth: 20,
+                teamHeight: 90
+            }
+        ];
     }
     componentDidMount() {
         this.Interval = setInterval(() => {
@@ -45,6 +99,11 @@ export default class Main extends React.Component<IProps, IState>{
             })
         }
     }
+
+    getStyle = () => {
+        return this.zoomStyle[this.state.zoomLevel];
+    }
+
     render() {
         const MonsterBarColor = '#108ee9';
         const TeamDamageBarColor = '#FF0000';
@@ -67,12 +126,15 @@ export default class Main extends React.Component<IProps, IState>{
             });
         }
 
-        let getMonsterCrown=(data:any)=>{
-            if(data.crown==2){
+        let getMonsterCrown = (data: any) => {
+            if (data.crown == 2) {
                 return (<Icon type="trophy" theme="twoTone" twoToneColor="darkgray" />)
             }
-            else if(data.crown==3){
-                return (<Icon type="trophy" theme="twoTone" twoToneColor="darkgoldenrod"/>)
+            else if (data.crown == 3) {
+                return (<Icon type="trophy" theme="twoTone" twoToneColor="darkgoldenrod" />)
+            }
+            else if (data.crown == 1) {
+                return (<Icon type="smile" theme="twoTone" twoToneColor="darkgoldenrod" />)
             }
         }
 
@@ -106,22 +168,30 @@ export default class Main extends React.Component<IProps, IState>{
             }
             var monsterRender = data.map((m: any, index: number) => {
                 let fontStyle: any = {
-                    fontWeight: "bold"
+                    fontWeight: "bold",
+                    fontSize: this.getStyle().defaultFontSize
                 }
                 if (index == this.activeMonsterIndex) {
-                    fontStyle.fontSize = "20px";
+                    fontStyle.fontSize = this.getStyle().activeMonsterFontSize;
                 }
                 return (
                     <Panel showArrow={false} key={String(index)} header={(
-                        <>
-                            <span style={fontStyle}>{m.name} ({m.health.current}/{m.health.max})  {getMonsterCrown(m)}</span>
+                        <div style={{ height: index == this.activeMonsterIndex ? this.getStyle().teamHeight - 20 : this.getStyle().teamHeight - 25 }}>
+                            <div style={{ display: "flex" }}>
+                                <span style={fontStyle}>{m.name} ({m.health.current}/{m.health.max})  {getMonsterCrown(m)}</span>
+                                <div style={{ flexGrow: 1, textAlign: "right" }}>
+                                    <span style={{ color: m.health.fraction <= 0.3 ? "red" : m.health.fraction == 1 ? "green" : "black", fontWeight: "bold", fontSize: this.getStyle().defaultFontSize }}>{Math.floor(m.health.fraction * 100)}%</span>
+                                </div>
+
+                            </div>
                             <Progress
+                                strokeWidth={index == this.activeMonsterIndex ? this.getStyle().activeProgressWidth : this.getStyle().defaultProgressWidth}
                                 status="active"
                                 strokeColor={index == this.activeMonsterIndex ? "#FF0000" : MonsterBarColor}
                                 percent={m.health.fraction * 100}
-                                format={percent => (<span style={{ color: m.health.fraction <= 0.3 ? "red" : m.health.fraction == 1 ? "green" : "black", fontWeight: "bold" }}>{Math.floor(m.health.fraction * 100)}%</span>)}
+                                showInfo={false}
                             />
-                        </>
+                        </div>
                     )}>
                         <Row>
                             <Col span={24}>{getMonsterEffect(m.statusEffects)}</Col>
@@ -165,24 +235,66 @@ export default class Main extends React.Component<IProps, IState>{
                 }
             });
             return data.map((p: any, index: number) => {
-                return (
-                    <div key={p.name} style={{ height: 60 }}>
-                        <span style={{ fontWeight: "bold" }}>{p.name} {p.damage}</span>
-                        {index == _tempIndex ? (<Icon style={{ color: "red", marginLeft: 10, fontSize: "18px" }} type="chrome" spin={true} />) : null}
-                        <Progress
-                            strokeColor={MonsterBarColor}
-                            percent={p.barFraction * 100}
-                            format={percent => (<span style={{ color: "black", fontWeight: "bold" }}>{p.barFraction * 100}%</span>)}
-                        />
-                    </div>
-                )
+                if (p.name == "未知玩家") {
+                    return null;
+                }
+                else {
+                    return (
+                        <div key={p.name} style={{ height: this.getStyle().teamHeight }}>
+                            <div style={{ display: "flex" }}>
+                                <div>
+                                    <span style={{ fontWeight: "bold", fontSize: this.getStyle().defaultFontSize }}>{p.name} {p.damage}</span>
+                                    {index == _tempIndex ? (<Icon style={{ color: "red", marginLeft: 10, fontSize: this.getStyle().activeTeamIconSize }} type="chrome" spin={true} />) : null}
+                                </div>
+                                <div style={{ flexGrow: 1, textAlign: "right" }}>
+                                    <span style={{ color: "black", fontWeight: "bold", fontSize: this.getStyle().defaultFontSize }}>{p.barFraction * 100}%</span>
+                                </div>
+                            </div>
+                            <Progress
+                                strokeWidth={this.getStyle().defaultProgressWidth}
+                                strokeColor={MonsterBarColor}
+                                percent={p.barFraction * 100}
+                                showInfo={false}
+                            />
+                        </div>
+                    )
+                }
             });
+        }
+
+        let defaultFont = {
+            fontSize: 10
+        }
+
+        let onZoomChange = (isZoomIn: boolean) => {
+            if (isZoomIn) {
+                if (this.state.zoomLevel >= this.zoomStyle.length - 1) {
+                    return;
+                }
+                this.setState({
+                    zoomLevel: this.state.zoomLevel + 1
+                })
+            }
+            else {
+                if (this.state.zoomLevel <= 0) {
+                    return;
+                }
+                this.setState({
+                    zoomLevel: this.state.zoomLevel - 1
+                })
+            }
         }
         return (
             <Layout className="layout" style={{ height: "100vh" }}>
                 <Content style={{ padding: '0px 10px', height: "100%" }}>
                     <div style={{ background: '#fff', padding: 10, minHeight: "100%" }}>
-                        <div style={{ fontWeight: "bold", fontSize: "20px", position: "absolute", margin: "0px 10px" }}>React Hunter</div>
+                        <div style={{ fontWeight: "bold", fontSize: "20px", position: "absolute", margin: "0px 10px" }}>
+                            React Hunter
+                            <ButtonGroup style={{ marginLeft: 20, zIndex: 9999 }}>
+                                <Button type="primary" icon="zoom-in" onClick={e => { onZoomChange(true) }} />
+                                <Button type="primary" icon="zoom-out" onClick={e => { onZoomChange(false) }} />
+                            </ButtonGroup>
+                        </div>
                         <Row>
                             <Col lg={12} style={{ padding: 10 }}>
                                 <Divider orientation="right">Monster</Divider>
